@@ -1,0 +1,28 @@
+perfect recharge changes everywhere for every transation to status = 1 by default and only status = 0 when recharge or transaction fails.
+
+
+
+
+file: 
+transaction/transactionController.blade //
+authCOntroller.blade
+layout.blade
+transaction/balancetransferCOntroller.php
+transaction/masterTransactionController.php
+MasterTransactionReport.blade
+balanceTransafer.blade
+DistTransactionReport.blade
+DistTranactionController.php
+Dashboard.blade
+Dashboard2.blade
+OwnerAccountSummery.blade //
+MasterTransactionController.php //
+MemberTransaction/Master/MainBalanceReport.blade
+MemberTransaction/Master/DmrBalanceReport.blade
+MemberTransaction/Distributor/MainBalanceReport.blade
+Transasction/DistTranactionController.php //
+MemberTransaction/Distributor/DmrBalanceReport.blade
+
+database change:
+voucher_main datetime column
+transaction_ledger change

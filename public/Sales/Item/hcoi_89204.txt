@@ -1,0 +1,806 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 15, 2020 at 02:11 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.7
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `hcoi`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `book_id` bigint(255) NOT NULL,
+  `category_id` longtext NOT NULL,
+  `author_id` bigint(255) DEFAULT NULL,
+  `publisher_id` bigint(255) DEFAULT NULL,
+  `book_title` longtext NOT NULL,
+  `book_quantity` int(255) NOT NULL,
+  `book_borrowed` bigint(255) NOT NULL DEFAULT 0,
+  `book_image_path` longtext NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`book_id`, `category_id`, `author_id`, `publisher_id`, `book_title`, `book_quantity`, `book_borrowed`, `book_image_path`, `created_at`, `updated_at`) VALUES
+(8, '1', NULL, NULL, 'world history', 10, 1, 'book_cover_image_1607597781.jpg', '2020-12-10 10:56:21', NULL),
+(9, '1', 1, NULL, 'new book', 40, 1, 'carolyn-christine-D7bmnvGJA2Q-unsplash_1607606865.jpg', '2020-12-10 13:27:45', NULL),
+(10, '1', NULL, NULL, 'India history', 10, 1, 'book_cover_image_1607597781.jpg', '2020-12-10 10:56:21', '2020-12-11 18:30:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books__authors`
+--
+
+CREATE TABLE `books__authors` (
+  `author_id` bigint(20) NOT NULL,
+  `author_name` longtext COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `books__authors`
+--
+
+INSERT INTO `books__authors` (`author_id`, `author_name`) VALUES
+(1, 'Dale Carniege');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books__categories`
+--
+
+CREATE TABLE `books__categories` (
+  `category_id` bigint(255) NOT NULL,
+  `category_name` longtext COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `books__categories`
+--
+
+INSERT INTO `books__categories` (`category_id`, `category_name`) VALUES
+(1, 'History');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books__e_library`
+--
+
+CREATE TABLE `books__e_library` (
+  `e_library_id` bigint(255) NOT NULL,
+  `e_library_category_id` bigint(255) NOT NULL,
+  `e_library_author_id` bigint(255) DEFAULT NULL,
+  `e_library_publisher_id` bigint(255) DEFAULT NULL,
+  `e_library_title` longtext NOT NULL,
+  `e_library_description` longtext DEFAULT NULL,
+  `e_library_cover_img` longtext NOT NULL,
+  `e_library_path` longtext NOT NULL,
+  `create_date` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `books__e_library`
+--
+
+INSERT INTO `books__e_library` (`e_library_id`, `e_library_category_id`, `e_library_author_id`, `e_library_publisher_id`, `e_library_title`, `e_library_description`, `e_library_cover_img`, `e_library_path`, `create_date`) VALUES
+(1, 1, NULL, NULL, 'asdf', NULL, 'book_cover_image_1607414912.jpeg', 'sample_1607414912.pdf', '2020-12-08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books__publishers`
+--
+
+CREATE TABLE `books__publishers` (
+  `publisher_id` bigint(255) NOT NULL,
+  `publisher_name` longtext COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidates`
+--
+
+CREATE TABLE `candidates` (
+  `candidate_id` bigint(255) NOT NULL,
+  `full_name` longtext NOT NULL,
+  `date_of_birth` varchar(255) NOT NULL,
+  `place` longtext NOT NULL,
+  `age` varchar(255) NOT NULL,
+  `native_address` longtext NOT NULL,
+  `mobile_number` longtext NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `father_name` longtext NOT NULL,
+  `father_mobile_number` varchar(255) NOT NULL,
+  `mother_name` longtext NOT NULL,
+  `mother_mobile_number` varchar(255) DEFAULT NULL,
+  `parent_address` longtext NOT NULL,
+  `yearly_income` varchar(255) NOT NULL,
+  `local_guardian_name` longtext DEFAULT NULL,
+  `local_guardian_mobile_number` varchar(255) DEFAULT NULL,
+  `local_guardian_address` longtext DEFAULT NULL,
+  `qualification` longtext NOT NULL,
+  `date_of_admission` varchar(255) DEFAULT NULL,
+  `upsc_prelim_attemp` varchar(255) NOT NULL,
+  `krc_id` bigint(255) NOT NULL DEFAULT 0,
+  `krc_status` longtext NOT NULL DEFAULT '0',
+  `krc_assign_date` date DEFAULT NULL,
+  `krc_assign_update` date DEFAULT NULL,
+  `candidate_room` text DEFAULT NULL,
+  `candidate_picture` longtext DEFAULT NULL,
+  `security_deposit` bigint(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `candidates`
+--
+
+INSERT INTO `candidates` (`candidate_id`, `full_name`, `date_of_birth`, `place`, `age`, `native_address`, `mobile_number`, `password`, `father_name`, `father_mobile_number`, `mother_name`, `mother_mobile_number`, `parent_address`, `yearly_income`, `local_guardian_name`, `local_guardian_mobile_number`, `local_guardian_address`, `qualification`, `date_of_admission`, `upsc_prelim_attemp`, `krc_id`, `krc_status`, `krc_assign_date`, `krc_assign_update`, `candidate_room`, `candidate_picture`, `security_deposit`) VALUES
+(1, 'laravel', '1990-02-01', 'laravel', 'year 30 month 10 days 8', 'laravel', '9876544646', '', 'laravel', '6544646546', 'laravel', '6544665464', 'laravel', '654654', NULL, NULL, NULL, 'laravel', '2018-02-02', 'No', 1, 'R1-1', '2020-12-11', NULL, NULL, '514032candidate.png', NULL),
+(2, 'bhushan kumar', '1970-01-02', 'auragabad', '50', 'aurangabad', '9876547898', '123456', 'gopal kumar', '9876465498', 'shreya kumar', NULL, 'aurangabad', '500000', NULL, NULL, NULL, 'bca', '2018-10-10', 'No', 0, '0', NULL, NULL, NULL, '847949candidate.png', 5000),
+(3, 'Bilal Shaikh', '1970-01-02', 'Jalna', '50', 'Jalna', '9875454659', '123456', 'Kaisar Patel', '9876465498', 'shreya kumar', NULL, 'aurangabad', '500000', NULL, NULL, NULL, 'bca', '2018-10-10', 'No', 0, '0', NULL, NULL, NULL, '847949candidate.png', 5000),
+(4, 'test name', '1970-02-10', 'test', 'year 50 month 10 days 5', 'test', '9874545444', '', 'test', '7877777777', 'test', '6455555555', 'test', '555555555', 'test', '9876546465', 'test', 'test', '2020-10-10', 'No', 2, 'R1-2', '2020-12-15', NULL, '32', '995685candidate.png', 64544654);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidates__documents`
+--
+
+CREATE TABLE `candidates__documents` (
+  `document_id` bigint(255) NOT NULL,
+  `candidate_id` bigint(255) NOT NULL,
+  `document_name` longtext NOT NULL,
+  `document_path` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidates__requests`
+--
+
+CREATE TABLE `candidates__requests` (
+  `candidate_request_id` bigint(255) NOT NULL,
+  `candidate_id` bigint(255) NOT NULL,
+  `candidate_name` text NOT NULL,
+  `book_id` bigint(255) NOT NULL,
+  `book_name` longtext NOT NULL,
+  `status` bigint(255) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory__issue`
+--
+
+CREATE TABLE `inventory__issue` (
+  `issue_id` bigint(255) NOT NULL,
+  `status` bigint(255) DEFAULT 1,
+  `book_id` bigint(255) DEFAULT NULL,
+  `candidate_id` bigint(255) DEFAULT NULL,
+  `admin_id` bigint(255) NOT NULL,
+  `issue_date` text DEFAULT NULL,
+  `return_date` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory__issue`
+--
+
+INSERT INTO `inventory__issue` (`issue_id`, `status`, `book_id`, `candidate_id`, `admin_id`, `issue_date`, `return_date`) VALUES
+(25, 0, 8, 1, 1, '2020-12-12', '2020-12-12'),
+(26, 0, 9, 1, 1, '2020-12-12', '2020-12-12'),
+(27, 0, 10, 1, 1, '2020-12-12', '2020-12-12'),
+(28, 1, 8, 2, 1, '2020-12-12', NULL),
+(29, 1, 9, 2, 1, '2020-12-12', NULL),
+(30, 1, 10, 2, 1, '2020-12-12', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory__purchase`
+--
+
+CREATE TABLE `inventory__purchase` (
+  `purchase_id` bigint(20) NOT NULL,
+  `vendor_name` longtext NOT NULL,
+  `vendor_firm` longtext NOT NULL,
+  `vendor_mobile` bigint(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory__stocks`
+--
+
+CREATE TABLE `inventory__stocks` (
+  `inventory_id` bigint(255) NOT NULL,
+  `issue_id` bigint(255) DEFAULT NULL,
+  `stock_in` bigint(255) NOT NULL DEFAULT 0,
+  `stock_out` bigint(255) NOT NULL DEFAULT 0,
+  `book_id` bigint(255) NOT NULL DEFAULT 0,
+  `books_quantity` bigint(255) NOT NULL DEFAULT 0,
+  `book_borrowed` bigint(255) NOT NULL DEFAULT 0,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory__stocks`
+--
+
+INSERT INTO `inventory__stocks` (`inventory_id`, `issue_id`, `stock_in`, `stock_out`, `book_id`, `books_quantity`, `book_borrowed`, `date`) VALUES
+(14, 28, 1, 0, 8, 10, 1, '2020-12-12 05:49:53'),
+(15, 29, 1, 0, 9, 40, 1, '2020-12-12 05:50:23'),
+(16, 30, 1, 0, 10, 10, 1, '2020-12-12 05:50:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `krc`
+--
+
+CREATE TABLE `krc` (
+  `krc_id` bigint(255) NOT NULL,
+  `candidate_id` bigint(255) DEFAULT NULL,
+  `krc_seat_label` varchar(255) DEFAULT NULL,
+  `krc_location` longtext NOT NULL DEFAULT 'Ask Admin',
+  `krc_status` int(255) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `krc`
+--
+
+INSERT INTO `krc` (`krc_id`, `candidate_id`, `krc_seat_label`, `krc_location`, `krc_status`) VALUES
+(1, NULL, '1', 'Reading Room 1', 2),
+(2, NULL, '2', 'Reading Room 1', 2),
+(3, NULL, '72', 'Reading Room 2', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `krc__transactions`
+--
+
+CREATE TABLE `krc__transactions` (
+  `krc_transaction_id` bigint(255) NOT NULL,
+  `candidate_status` bigint(255) NOT NULL DEFAULT 1,
+  `krc_id` bigint(255) DEFAULT NULL,
+  `krc_seat_label` bigint(255) DEFAULT NULL,
+  `candidate_id` bigint(20) NOT NULL,
+  `from_date` text DEFAULT NULL,
+  `to_date` text DEFAULT NULL,
+  `date_time` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `krc__transactions`
+--
+
+INSERT INTO `krc__transactions` (`krc_transaction_id`, `candidate_status`, `krc_id`, `krc_seat_label`, `candidate_id`, `from_date`, `to_date`, `date_time`) VALUES
+(2, 1, 1, 1, 1, '2020-12-11', NULL, '2020-12-11'),
+(3, 1, 2, 2, 4, '2020-12-15', NULL, '2020-12-15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mess__menu`
+--
+
+CREATE TABLE `mess__menu` (
+  `mess_id` bigint(255) NOT NULL,
+  `mess_breakfast` longtext NOT NULL,
+  `mess_breakfast_time` longtext NOT NULL,
+  `mess_lunch` longtext NOT NULL,
+  `mess_lunch_time` longtext NOT NULL,
+  `mess_snacks` longtext NOT NULL,
+  `mess_snacks_time` longtext NOT NULL,
+  `mess_dinner` longtext NOT NULL,
+  `mess_dinner_time` longtext NOT NULL,
+  `mess_day` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mess__menu`
+--
+
+INSERT INTO `mess__menu` (`mess_id`, `mess_breakfast`, `mess_breakfast_time`, `mess_lunch`, `mess_lunch_time`, `mess_snacks`, `mess_snacks_time`, `mess_dinner`, `mess_dinner_time`, `mess_day`) VALUES
+(1, 'asdf', '13:40', 'asdf', '13:41', 'asdf', '13:41', 'sdf', '14:41', '2020-12-08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `notification_id` bigint(255) NOT NULL,
+  `notification_titile` text NOT NULL,
+  `notification_details` longtext NOT NULL,
+  `notifications_datetime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`notification_id`, `notification_titile`, `notification_details`, `notifications_datetime`) VALUES
+(1, 'sdf', 'sdf', '2020-12-08 08:12:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tests`
+--
+
+CREATE TABLE `tests` (
+  `test_id` bigint(255) NOT NULL,
+  `test_title` text NOT NULL,
+  `test_duration` longtext NOT NULL DEFAULT '0',
+  `test_passing_marks` bigint(255) NOT NULL DEFAULT 0,
+  `test_total_marks` bigint(255) NOT NULL DEFAULT 0,
+  `test_datetime` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tests`
+--
+
+INSERT INTO `tests` (`test_id`, `test_title`, `test_duration`, `test_passing_marks`, `test_total_marks`, `test_datetime`) VALUES
+(1, 'sdf', 'sdf', 654, 654, '2020-12-08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tests__question`
+--
+
+CREATE TABLE `tests__question` (
+  `question_id` bigint(255) NOT NULL,
+  `test_id` longtext NOT NULL,
+  `question` longtext NOT NULL,
+  `question_a` longtext DEFAULT NULL,
+  `question_b` longtext DEFAULT NULL,
+  `question_c` longtext DEFAULT NULL,
+  `question_d` longtext DEFAULT NULL,
+  `question_answer` varchar(255) DEFAULT NULL,
+  `question_marks` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tests__question`
+--
+
+INSERT INTO `tests__question` (`question_id`, `test_id`, `question`, `question_a`, `question_b`, `question_c`, `question_d`, `question_answer`, `question_marks`) VALUES
+(1, '1', 'sdf', 'sdf', 's', 'sf', 'sf', 'sdf', 654);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) DEFAULT NULL,
+  `picture` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` bigint(255) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `role_id`, `picture`, `name`, `mobile`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 'Akram Shaikh', 9876543210, 'akram@gmail.com', NULL, '123456', NULL, NULL, NULL),
+(2, 2, NULL, 'Adil Khan', 9999999999, 'adil@gmail.com', NULL, '123456', NULL, NULL, '2020-12-07 06:12:25'),
+(3, 3, NULL, 'Iqbal Shaikh', 8888888888, 'iqbal@gmail.com', NULL, '123456', NULL, NULL, '2020-12-07 06:12:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users__role`
+--
+
+CREATE TABLE `users__role` (
+  `role_id` bigint(255) NOT NULL,
+  `role_name` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users__role`
+--
+
+INSERT INTO `users__role` (`role_id`, `role_name`) VALUES
+(1, 'Admin'),
+(2, 'Test'),
+(3, 'Mess');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_library`
+--
+
+CREATE TABLE `video_library` (
+  `video_id` bigint(255) NOT NULL,
+  `video_subject` longtext NOT NULL,
+  `video_name` longtext DEFAULT NULL,
+  `video_desciption` longtext DEFAULT NULL,
+  `video_link` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `video_library`
+--
+
+INSERT INTO `video_library` (`video_id`, `video_subject`, `video_name`, `video_desciption`, `video_link`) VALUES
+(1, 'sf', 'sd', 'sdf', 'sdf');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`book_id`);
+
+--
+-- Indexes for table `books__authors`
+--
+ALTER TABLE `books__authors`
+  ADD PRIMARY KEY (`author_id`);
+
+--
+-- Indexes for table `books__categories`
+--
+ALTER TABLE `books__categories`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `books__e_library`
+--
+ALTER TABLE `books__e_library`
+  ADD PRIMARY KEY (`e_library_id`);
+
+--
+-- Indexes for table `books__publishers`
+--
+ALTER TABLE `books__publishers`
+  ADD PRIMARY KEY (`publisher_id`);
+
+--
+-- Indexes for table `candidates`
+--
+ALTER TABLE `candidates`
+  ADD PRIMARY KEY (`candidate_id`);
+
+--
+-- Indexes for table `candidates__documents`
+--
+ALTER TABLE `candidates__documents`
+  ADD PRIMARY KEY (`document_id`);
+
+--
+-- Indexes for table `candidates__requests`
+--
+ALTER TABLE `candidates__requests`
+  ADD PRIMARY KEY (`candidate_request_id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory__issue`
+--
+ALTER TABLE `inventory__issue`
+  ADD PRIMARY KEY (`issue_id`);
+
+--
+-- Indexes for table `inventory__purchase`
+--
+ALTER TABLE `inventory__purchase`
+  ADD PRIMARY KEY (`purchase_id`);
+
+--
+-- Indexes for table `inventory__stocks`
+--
+ALTER TABLE `inventory__stocks`
+  ADD PRIMARY KEY (`inventory_id`);
+
+--
+-- Indexes for table `krc`
+--
+ALTER TABLE `krc`
+  ADD PRIMARY KEY (`krc_id`);
+
+--
+-- Indexes for table `krc__transactions`
+--
+ALTER TABLE `krc__transactions`
+  ADD PRIMARY KEY (`krc_transaction_id`);
+
+--
+-- Indexes for table `mess__menu`
+--
+ALTER TABLE `mess__menu`
+  ADD PRIMARY KEY (`mess_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notification_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `tests`
+--
+ALTER TABLE `tests`
+  ADD PRIMARY KEY (`test_id`);
+
+--
+-- Indexes for table `tests__question`
+--
+ALTER TABLE `tests__question`
+  ADD PRIMARY KEY (`question_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `users__role`
+--
+ALTER TABLE `users__role`
+  ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indexes for table `video_library`
+--
+ALTER TABLE `video_library`
+  ADD PRIMARY KEY (`video_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `book_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `books__authors`
+--
+ALTER TABLE `books__authors`
+  MODIFY `author_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `books__categories`
+--
+ALTER TABLE `books__categories`
+  MODIFY `category_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `books__e_library`
+--
+ALTER TABLE `books__e_library`
+  MODIFY `e_library_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `books__publishers`
+--
+ALTER TABLE `books__publishers`
+  MODIFY `publisher_id` bigint(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `candidates`
+--
+ALTER TABLE `candidates`
+  MODIFY `candidate_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `candidates__documents`
+--
+ALTER TABLE `candidates__documents`
+  MODIFY `document_id` bigint(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `candidates__requests`
+--
+ALTER TABLE `candidates__requests`
+  MODIFY `candidate_request_id` bigint(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `inventory__issue`
+--
+ALTER TABLE `inventory__issue`
+  MODIFY `issue_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `inventory__purchase`
+--
+ALTER TABLE `inventory__purchase`
+  MODIFY `purchase_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `inventory__stocks`
+--
+ALTER TABLE `inventory__stocks`
+  MODIFY `inventory_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `krc`
+--
+ALTER TABLE `krc`
+  MODIFY `krc_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `krc__transactions`
+--
+ALTER TABLE `krc__transactions`
+  MODIFY `krc_transaction_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `mess__menu`
+--
+ALTER TABLE `mess__menu`
+  MODIFY `mess_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `notification_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tests`
+--
+ALTER TABLE `tests`
+  MODIFY `test_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tests__question`
+--
+ALTER TABLE `tests__question`
+  MODIFY `question_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `users__role`
+--
+ALTER TABLE `users__role`
+  MODIFY `role_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `video_library`
+--
+ALTER TABLE `video_library`
+  MODIFY `video_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

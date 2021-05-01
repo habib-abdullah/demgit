@@ -1,0 +1,2 @@
+<h2>Welcome to Master Dashboard</h2>
+<a class="btn btn-danger" href="<?php echo e(url('Logout')); ?>">Logout</a><?php /**PATH C:\xampp\htdocs\LaravelAdminlte3-middleware\resources\views/Master/Dashboard.blade.php ENDPATH**/ ?>
